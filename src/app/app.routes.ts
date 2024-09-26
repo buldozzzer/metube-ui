@@ -1,10 +1,10 @@
-import { RouterModule, Routes } from '@angular/router';
+import { provideRouter, RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, isDevMode } from '@angular/core';
+import { NgModule, isDevMode, provideZoneChangeDetection } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { provideHttpClient } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CookieService } from 'ngx-cookie-service';
 
@@ -14,10 +14,14 @@ import { MasterCheckboxComponent, SlaveCheckboxComponent } from './master-checkb
 import { MeTubeSocket } from './metube-socket';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { LoginComponent } from './login/login.component';
+import { AuthGuardService } from './login/auth-guard.service';
+import { AuthService } from './login/auth.service';
 
 export const routes: Routes = [
-    { path: '', redirectTo: 'home', pathMatch: 'full' },
-    { path: 'home', component: HomeComponent },
+    { path: '', redirectTo: 'login', pathMatch: 'full' },
+    { path: 'home', component: HomeComponent, canActivate: [AuthGuardService]},
+    { path: 'login', pathMatch: 'full', component: LoginComponent }
     
 ];
 
@@ -29,9 +33,10 @@ export const routes: Routes = [
         FileSizePipe,
         EncodeURIComponent,
         MasterCheckboxComponent,
-        SlaveCheckboxComponent
+        SlaveCheckboxComponent,
       ],
-    imports: [RouterModule.forRoot(routes),
+    imports: [
+        RouterModule.forRoot(routes),
         BrowserModule,
         FormsModule,
         ReactiveFormsModule,
@@ -45,7 +50,13 @@ export const routes: Routes = [
         registrationStrategy: 'registerWhenStable:30000'
     })
     ],
-    providers: [provideHttpClient(), CookieService, MeTubeSocket],
+    providers: [
+        provideZoneChangeDetection({ eventCoalescing: true }), 
+        provideHttpClient(), 
+        CookieService, 
+        MeTubeSocket,
+        provideRouter(routes),
+    ],
     exports: [RouterModule],
     bootstrap: [AppComponent]
   })
