@@ -1,0 +1,9 @@
+services:
+  frontend:
+    restart: on-failure
+    ports:
+      - "4200:4200"
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: frontend

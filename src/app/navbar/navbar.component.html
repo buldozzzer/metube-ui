@@ -1,0 +1,30 @@
+<nav class="navbar navbar-expand-md navbar-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">MeTube</a>
+    <div class="navbar-nav ms-auto">
+      <div class="nav-item dropdown">
+        <button class="btn btn-link nav-link py-2 px-0 px-sm-2 dropdown-toggle d-flex align-items-center"
+                id="theme-select"
+                type="button"
+                aria-expanded="false"
+                data-bs-toggle="dropdown"
+                data-bs-display="static">
+          <fa-icon [icon]="activeTheme.icon"></fa-icon>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end position-absolute" aria-labelledby="theme-select">
+          <li *ngFor="let theme of themes">
+            <button type="button" class="dropdown-item d-flex align-items-center" [ngClass]="{'active' : activeTheme == theme}" (click)="themeChanged(theme)">
+              <span class="me-2 opacity-50">
+                <fa-icon [icon]="theme.icon"></fa-icon>
+              </span>
+              {{ theme.displayName }}
+              <span class="ms-auto" [ngClass]="{'d-none' : activeTheme != theme}">
+                <fa-icon [icon]="faCheck"></fa-icon>
+              </span>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
