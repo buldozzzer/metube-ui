@@ -1,8 +1,7 @@
 services:
   frontend:
     restart: on-failure
-    ports:
-      - "4200:4200"
+    network_mode: "host"  
     build:
       context: .
       dockerfile: ./Dockerfile

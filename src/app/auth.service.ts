@@ -1,6 +1,7 @@
 import { HttpClient } from  '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { tap } from 'rxjs/operators';
+import { environment } from '../environments/environment';
 
 export interface LoginStatus {
     access_token?: string;
@@ -17,13 +18,17 @@ export  class  AuthService {
   loading : boolean = true;
   isLoggedIn : boolean = false;
   httpClient = inject(HttpClient); 
-  baseUrl = 'http://109.232.186.180:15380';
+  apiUrl = 'http://109.232.186.180:15380';
 
   constructor (private http: HttpClient) {
+    if (environment.production){
+      this.apiUrl = environment.url
+    }
+    console.log(this.apiUrl)
   } 
 
   login(data: any) {
-    return this.httpClient.post<any>(`${this.baseUrl}/login`, data)
+    return this.httpClient.post<any>(`${this.apiUrl}/login`, data)
       .pipe(tap((result) => {
         localStorage.setItem('access_token', result.access_token);
         this.isLoggedIn = true;

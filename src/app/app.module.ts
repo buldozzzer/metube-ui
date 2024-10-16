@@ -23,11 +23,7 @@ export const routes: Routes = [
 
 @NgModule({
   declarations: [
-    AppComponent,
-    EtaPipe,
-    SpeedPipe,
-    FileSizePipe,
-    EncodeURIComponent,
+    AppComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

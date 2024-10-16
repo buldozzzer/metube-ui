@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, of, Subject } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { MeTubeSocket } from './metube-socket';
+import { environment } from '../environments/environment';
 
 export interface Status {
   status: string;
@@ -43,8 +44,12 @@ export class DownloadsService {
 
   configuration = {};
   customDirs = {};
+  apiUrl = 'http://109.232.186.180:15380'
 
   constructor(private http: HttpClient, private socket: MeTubeSocket) {
+    if (environment.production){
+      this.apiUrl = environment.url
+    }
     socket.fromEvent('all').subscribe((strdata: string) => {
       this.loading = false;
       let data: [[[string, Download]], [[string, Download]]] = JSON.parse(strdata);
@@ -104,18 +109,18 @@ export class DownloadsService {
   }
 
   public add(url: string, quality: string, format: string, folder: string, customNamePrefix: string, playlistStrictMode: boolean, playlistItemLimit: number, autoStart: boolean) {
-    return this.http.post<Status>('add', {url: url, quality: quality, format: format, folder: folder, custom_name_prefix: customNamePrefix, playlist_strict_mode: playlistStrictMode, playlist_item_limit: playlistItemLimit, auto_start: autoStart}).pipe(
+    return this.http.post<Status>(`${this.apiUrl}`, {url: url, quality: quality, format: format, folder: folder, custom_name_prefix: customNamePrefix, playlist_strict_mode: playlistStrictMode, playlist_item_limit: playlistItemLimit, auto_start: autoStart}).pipe(
       catchError(this.handleHTTPError)
     );
   }
 
   public startById(ids: string[]) {
-    return this.http.post('start', {ids: ids});
+    return this.http.post(`${this.apiUrl}`, {ids: ids});
   }
 
   public delById(where: string, ids: string[]) {
     ids.forEach(id => this[where].get(id).deleting = true);
-    return this.http.post('delete', {where: where, ids: ids});
+    return this.http.post(`${this.apiUrl}`, {where: where, ids: ids});
   }
 
   public delByFilter(where: string, filter: (dl: Download) => boolean) {

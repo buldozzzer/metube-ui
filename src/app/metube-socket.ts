@@ -4,7 +4,7 @@ import { Socket } from 'ngx-socket-io';
 @Injectable()
 export class MeTubeSocket extends Socket {
   constructor() {
-    // console.log(document.location.pathname);
+    console.log(document.location.pathname);
 
     // var path = document.location.pathname
     // if (path.endsWith('home')){
@@ -17,6 +17,7 @@ export class MeTubeSocket extends Socket {
     //   path = 'socket.io'
     // }
     const path = 'socket.io'
-    super({ url: '109.232.186.180:15380', options: { path } });
+
+    super({ url: '109.232.186.180:15380', });
   }
 }

@@ -1,15 +1,22 @@
 import { Component } from '@angular/core';
-import { inject } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../auth.service'
 import { NavbarComponent } from '../navbar/navbar.component';
+import { DownloadsService } from '../downloads.service';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ ReactiveFormsModule, RouterModule, NavbarComponent],
+  imports: [ 
+    ReactiveFormsModule,
+    FormsModule,
+    RouterModule, 
+    NavbarComponent,
+    CommonModule,
+  ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.sass'
 })
@@ -17,10 +24,10 @@ export class LoginComponent {
 
   username: string
   password: string
-
-  authService = inject(AuthService);
-  router = inject(Router);
   
+  constructor(public router: Router, public authService: AuthService, public downloads: DownloadsService){
+  }
+
   protected loginForm = new FormGroup({
     username: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required])

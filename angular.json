@@ -33,9 +33,9 @@
               "src/styles.sass"
             ],
             "scripts": [
-              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
             ],
-            "serviceWorker": true,
+            "serviceWorker": false,
             "ngswConfigPath": "ngsw-config.json"
           },
           "configurations": {
@@ -46,13 +46,13 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
-              "optimization": true,
+              "optimization": false,
               "outputHashing": "all",
-              "sourceMap": false,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
+              "sourceMap": true,
+              "namedChunks": true,
+              "extractLicenses": false,
+              "vendorChunk": true,
+              "buildOptimizer": false,
               "budgets": [
                 {
                   "type": "initial",
@@ -65,7 +65,28 @@
                   "maximumError": "10kb"
                 }
               ]
-            }
+            },
+            "development": {
+              "optimization": false,
+              "sourceMap": true,
+              "namedChunks": true,
+              "extractLicenses": true,
+              "vendorChunk": true,
+              "buildOptimizer": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "6mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+        }
+            
           }
         },
         "serve": {
@@ -76,6 +97,9 @@
           "configurations": {
             "production": {
               "buildTarget": "metube:build:production"
+            },
+            "development": {
+              "buildTarget": "metube:build:development"
             }
           }
         },
@@ -133,6 +157,6 @@
     }
   },
   "cli": {
-    "analytics": false
+    "analytics": "a8ade8d0-6df2-4cde-aea4-19e35088121d"
   }
 }

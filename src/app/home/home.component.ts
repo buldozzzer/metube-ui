@@ -12,9 +12,11 @@ import { Theme, Themes } from '../theme';
 import {KeyValue} from "@angular/common";
 import { NavbarComponent } from '../navbar/navbar.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControlName, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { EncodeURIComponent, EtaPipe, FileSizePipe, SpeedPipe } from '../downloads.pipe';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'home',
@@ -26,11 +28,16 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     SlaveCheckboxComponent,
     FontAwesomeModule,
     FormsModule,
+    ReactiveFormsModule,
     NgSelectModule,
     CommonModule,
     ReactiveFormsModule,
     NgbModule,
-    NavbarComponent
+    NavbarComponent,
+    EtaPipe,
+    SpeedPipe,
+    FileSizePipe,
+    EncodeURIComponent,
   ]
 })
 export class HomeComponent implements AfterViewInit {

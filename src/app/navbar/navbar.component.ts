@@ -4,6 +4,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { faTrashAlt, faCheckCircle, faTimesCircle, IconDefinition } from '@fortawesome/free-regular-svg-icons';
 import { faRedoAlt, faSun, faMoon, faCircleHalfStroke, faCheck, faExternalLinkAlt, faDownload } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
@@ -11,7 +12,10 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.sass'],
   standalone: true,
-  imports: [FontAwesomeModule]
+  imports: [
+    FontAwesomeModule,
+    CommonModule,
+  ]
 })
 export class NavbarComponent {
   title = 'navbar';
