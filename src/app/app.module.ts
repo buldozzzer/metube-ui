@@ -14,11 +14,13 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { LoginComponent } from './login/login.component';
 import { AuthGuardService } from './auth.guard.service';
 import { NavbarComponent } from './navbar/navbar.component';
+import { SplitComponent } from './split/split.component';
 
 
 export const routes: Routes = [
   { path: '', component: LoginComponent},
   { path: 'home', component: HomeComponent, canActivate: [AuthGuardService]},
+  { path: 'split', component: SplitComponent, canActivate: [AuthGuardService]}
 ];
 
 @NgModule({
@@ -31,12 +33,11 @@ export const routes: Routes = [
     BrowserModule,
     LoginComponent,
     HomeComponent,
+    SplitComponent,
     HttpClientModule,
     FontAwesomeModule,
     ServiceWorkerModule.register('custom-service-worker.js', {
       enabled: !isDevMode(),
-      // Register the ServiceWorker as soon as the application is stable
-      // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'
     })
   ],

@@ -12,6 +12,6 @@ export class MeTubeSocket extends Socket {
       apiUrl = environment.url
     }
 
-    super({ url: '109.232.186.180:15380' });
+    super({ url: apiUrl });
   }
 }
