@@ -15,12 +15,14 @@ import { LoginComponent } from './login/login.component';
 import { AuthGuardService } from './auth.guard.service';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SplitComponent } from './split/split.component';
+import { MergeComponent } from './merge/merge.component';
 
 
 export const routes: Routes = [
   { path: '', component: LoginComponent},
   { path: 'home', component: HomeComponent, canActivate: [AuthGuardService]},
-  { path: 'split', component: SplitComponent, canActivate: [AuthGuardService]}
+  { path: 'split', component: SplitComponent, canActivate: [AuthGuardService]},
+  { path: 'merge', component: MergeComponent, canActivate: [AuthGuardService]}
 ];
 
 @NgModule({
@@ -33,6 +35,7 @@ export const routes: Routes = [
     BrowserModule,
     LoginComponent,
     HomeComponent,
+    MergeComponent,
     SplitComponent,
     HttpClientModule,
     FontAwesomeModule,
