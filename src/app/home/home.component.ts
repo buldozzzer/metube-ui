@@ -283,7 +283,7 @@ export class HomeComponent implements AfterViewInit {
       baseDir += download.folder + '/';
     }
 
-    return baseDir + encodeURIComponent(download.filename);
+    return 'http://109.232.186.180:15380/' + baseDir + encodeURIComponent(download.filename);
   }
 
   identifyDownloadRow(index: number, row: KeyValue<string, Download>) {
