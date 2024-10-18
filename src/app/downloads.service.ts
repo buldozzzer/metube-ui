@@ -109,18 +109,18 @@ export class DownloadsService {
   }
 
   public add(url: string, quality: string, format: string, folder: string, customNamePrefix: string, playlistStrictMode: boolean, playlistItemLimit: number, autoStart: boolean) {
-    return this.http.post<Status>(`${this.apiUrl}`, {url: url, quality: quality, format: format, folder: folder, custom_name_prefix: customNamePrefix, playlist_strict_mode: playlistStrictMode, playlist_item_limit: playlistItemLimit, auto_start: autoStart}).pipe(
+    return this.http.post<Status>(`${this.apiUrl}/add`, {url: url, quality: quality, format: format, folder: folder, custom_name_prefix: customNamePrefix, playlist_strict_mode: playlistStrictMode, playlist_item_limit: playlistItemLimit, auto_start: autoStart}).pipe(
       catchError(this.handleHTTPError)
     );
   }
 
   public startById(ids: string[]) {
-    return this.http.post(`${this.apiUrl}`, {ids: ids});
+    return this.http.post(`${this.apiUrl}/start`, {ids: ids});
   }
 
   public delById(where: string, ids: string[]) {
     ids.forEach(id => this[where].get(id).deleting = true);
-    return this.http.post(`${this.apiUrl}`, {where: where, ids: ids});
+    return this.http.post(`${this.apiUrl}/delete`, {where: where, ids: ids});
   }
 
   public delByFilter(where: string, filter: (dl: Download) => boolean) {
